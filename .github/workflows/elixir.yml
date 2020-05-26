@@ -30,4 +30,4 @@ jobs:
         # Docker Image name
         image-name: gitlab-monitor
         # Extract git-tag from repository
-        extract-git-tag: true
+        #extract-git-tag: true
