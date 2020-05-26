@@ -16,12 +16,12 @@ jobs:
     - name: Setup elixir
       uses: actions/setup-elixir@v1
       with:
-        elixir-version: 1.9.4 # Define the elixir version [required]
+        elixir-version: 1.10.3 # Define the elixir version [required]
         otp-version: 22.2 # Define the OTP version [required]
     - name: Install Dependencies
       run: mix deps.get
     - name: Run Tests
-      run: mix tes
+      run: mix test
     - name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
       uses: banool/gp-docker-action@1.0.2
       with:
