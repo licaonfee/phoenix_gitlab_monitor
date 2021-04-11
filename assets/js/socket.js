@@ -7,7 +7,11 @@ import { Socket } from 'phoenix'
 import timeago from 'timeago.js'
 import * as templates from './templates.js'
 
-let socket = new Socket('/gmon/socket', { params: { token: window.userToken } })
+const query = window.location.search;
+const params = new URLSearchParams(query);
+const project = params.get("project") ? params.getAll("project"): [];
+
+const socket = new Socket('/gmon/socket', { params: { token: window.userToken, project: project} })
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,

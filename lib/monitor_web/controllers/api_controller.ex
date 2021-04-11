@@ -32,6 +32,7 @@ defmodule MonitorWeb.ApiController do
 
     if accept_branch?(branch, params["branches"]) do
       Monitor.PipelineCache.put project_branch, %{
+        project_id: project_id,
         name: name,
         pipeline_id: pipeline_id,
         branch: branch,
@@ -48,10 +49,9 @@ defmodule MonitorWeb.ApiController do
     case conn |> get_req_header("x-gitlab-event") do
       ["Pipeline Hook"] ->
         put_pipeline_info(conn.params)
-
         MonitorWeb.Endpoint.broadcast! "room:lobby",
           "update_pipelines", %{
-            pipelines: Monitor.PipelineCache.get_all
+                pipelines: Monitor.PipelineCache.get_pipelines []
           }
         conn
       [] -> conn
