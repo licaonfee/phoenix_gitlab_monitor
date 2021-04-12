@@ -1,5 +1,6 @@
 defmodule MonitorWeb.ApiController do
   use MonitorWeb, :controller
+  require Logger
 
   plug :validate_token
   plug :fetch_pipeline
@@ -51,7 +52,7 @@ defmodule MonitorWeb.ApiController do
         put_pipeline_info(conn.params)
         MonitorWeb.Endpoint.broadcast! "room:lobby",
           "update_pipelines", %{
-                pipelines: Monitor.PipelineCache.get_pipelines []
+                pipelines: Monitor.PipelineCache.get_pipelines nil
           }
         conn
       [] -> conn
